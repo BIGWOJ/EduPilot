@@ -30,7 +30,7 @@ class Student(models.Model):
     mobile_number = models.CharField(max_length=20)
     admission_number = models.CharField(max_length=20)
     section = models.CharField(max_length=30)
-    student_image = models.ImageField(upload_to='student', blank=True, null=True)
+    student_image = models.ImageField(upload_to='student/profile_pictures', blank=True, null=True)
     parent = models.OneToOneField(Parent, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
     
@@ -38,7 +38,6 @@ class Student(models.Model):
         if not self.slug:
             self.slug = slugify(f"{self.first_name}-{self.last_name}-{self.student_id}")
         super().save(*args, **kwargs)
-
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} ({self.student_id})"
